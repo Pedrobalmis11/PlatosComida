@@ -142,6 +142,7 @@
         <StackPanel Margin="10"
                     Background="White"
                     Orientation="Horizontal">
+            
 
             <Grid>
                 <Grid.ColumnDefinitions>
