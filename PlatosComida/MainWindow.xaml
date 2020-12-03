@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="800"
-        Width="900">
+        Width="1050">
 
     <Window.Resources>
         <!--TRIGGER DE LECHE ICONO-->
@@ -18,6 +18,19 @@
                              Value="false">
                     <Setter Property="Visibility"
                             Value="Collapsed"></Setter>
+
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--TRIGGER DE COMBO BOX, NO VA-->
+        <Style TargetType="ComboBoxItem"
+               x:Key="chinaComboBoxItem">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="China">
+                    <Setter Property="IsSelected"
+                            Value="true"></Setter>
 
                 </DataTrigger>
             </Style.Triggers>
@@ -72,7 +85,8 @@
 
                 <StackPanel Background="White"
                             Margin="10">
-                    <TextBlock Text="{Binding Nombre}"
+                    <TextBlock x:Name="nombrePlatoTextBlock"
+                               Text="{Binding Nombre}"
                                FontSize="40"
                                TextAlignment="Center">
 
@@ -138,37 +152,103 @@
 
     </Window.Resources>
 
-    <Grid Background="CadetBlue">
-        <StackPanel Margin="10"
-                    Background="White"
-                    Orientation="Horizontal">
-            
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <ListBox x:Name="ItemsListBox"
-                         ItemsSource="{Binding}"
-                         Grid.Column="0"
-                         Grid.Row="0">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-
-                </ListBox>
+    <Grid Background="White">
 
 
-            </Grid>
 
-        </StackPanel>
+        <Grid x:Name="myStackPanel"
+              Margin="10"
+              Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="ItemsListBox"
+                     SelectionChanged="ItemsListBox_SelectionChanged"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ItemsSource="{Binding}"
+                     Grid.Column="0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+            </ListBox>
+
+            <StackPanel x:Name="contenedorStackPanel"
+                        Grid.Column="1"
+                        Background="LightGray"
+                        Margin="10">
+
+                <StackPanel Margin="5">
+                    <TextBlock Text="Nombre del plato"
+                               FontSize="15">
+
+                    </TextBlock>
+
+                    <TextBox x:Name="nombreTextBox">
+
+                    </TextBox>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Text="Foto del plato"
+                               FontSize="15">
+
+                    </TextBlock>
+
+                    <TextBox x:Name="imagenTextBox">
+
+                    </TextBox>
+                </StackPanel>
+
+
+                <ComboBox Margin="5">
+                    <ComboBoxItem></ComboBoxItem>
+                    <ComboBoxItem x:Name="chinaComboBox">China</ComboBoxItem>
+                    <ComboBoxItem x:Name="americanaComboBox">Americana</ComboBoxItem>
+                    <ComboBoxItem x:Name="mexicanaComboBox">Mexicana</ComboBoxItem>
+                </ComboBox>
+
+                <GroupBox  Margin="5"
+                           Header="Alérgenos"
+                           BorderBrush="Black">
+                    <UniformGrid>
+                        <CheckBox Margin="5"
+                                  Content="Leche">
+
+                        </CheckBox>
+                        <CheckBox Margin="5"
+                                  Content="Leche">
+
+                        </CheckBox>
+                        <CheckBox Margin="5"
+                                  Content="Leche">
+
+                        </CheckBox>
+                        <CheckBox Margin="5"
+                                  Content="Leche">
+
+                        </CheckBox>
+                    </UniformGrid>
+
+                </GroupBox>
+
+
+                <Button Content="Comprobar"
+                        Click="Button_Click">
+
+                </Button>
+            </StackPanel>
+
+
+        </Grid>
 
     </Grid>
 </Window>
