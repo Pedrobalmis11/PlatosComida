@@ -44,6 +44,7 @@ namespace PlatosComida
             {
                 _tipo = value;
                 NotifyPropertyChanged("Tipo");
+                /*
                 if(_tipo == "Americana")
                 {
                     Tipo = "united_states.png";
@@ -56,6 +57,7 @@ namespace PlatosComida
                 {
                     Tipo = "china.png";
                 }
+                */
             }
         }
 

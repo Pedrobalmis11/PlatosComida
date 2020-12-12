@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>food_eat_grey_restaurant.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,6 +116,9 @@
     <Resource Include="fajitas.jpg" />
     <Resource Include="hotdog.jpg" />
     <Resource Include="tacos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="food_eat_grey_restaurant.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

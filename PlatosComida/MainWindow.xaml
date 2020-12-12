@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlatosComida"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Comida"
+        Icon="food_eat_grey_restaurant.ico"
         Height="800"
         Width="1050">
 
@@ -28,7 +29,7 @@
                x:Key="chinaComboBoxItem">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Tipo}"
-                             Value="China">
+                             Value="china.png">
                     <Setter Property="IsSelected"
                             Value="true"></Setter>
 
@@ -75,25 +76,88 @@
             </Style.Triggers>
         </Style>
 
+        <!--TRIGGER DE BANDERAS-->
+        <Style TargetType="Image"
+               x:Key="banderImage">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Americana">
+                    <Setter Property="Source"
+                            Value="united_states.png"></Setter>
+
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="China">
+                    <Setter Property="Source"
+                            Value="china.png"></Setter>
+
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Mexicana">
+                    <Setter Property="Source"
+                            Value="mexico.png"></Setter>
+
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--TRIGGER DE FUENTES-->
+        <Style TargetType="TextBlock"
+               x:Key="fontTextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Americana">
+                    <Setter Property="FontFamily"
+                            Value="Slim Summer">
+                    </Setter>
+
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="China">
+                    <Setter Property="FontFamily" Value="Chinese Wok Food St">
+                    </Setter>
+
+               </DataTrigger>
+
+                <DataTrigger Binding="{Binding Path=Tipo}"
+                             Value="Mexicana">
+                    <Setter Property="FontFamily" Value="Taco Salad">
+                    </Setter>
+                    
+
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+
         <!--DATA TEMPLATE DEL PLATO-->
         <DataTemplate DataType="{x:Type local:Plato}">
             <Border BorderBrush="Black"
-                    BorderThickness="1">
+                    BorderThickness="1"
+                    Width="300"
+                    Height="400">
                 <Border.Effect>
                     <DropShadowEffect />
                 </Border.Effect>
 
                 <StackPanel Background="White"
                             Margin="10">
-                    <TextBlock x:Name="nombrePlatoTextBlock"
-                               Text="{Binding Nombre}"
-                               FontSize="40"
-                               TextAlignment="Center">
+                    <Viewbox StretchDirection="DownOnly" Height="40">
+                        <TextBlock x:Name="nombrePlatoTextBlock"
+                                   Text="{Binding Nombre}"
+                                   FontSize="50"
+                                   Style="{StaticResource fontTextBlock}"
+                                   TextAlignment="Center">
 
-                    </TextBlock>
+                        </TextBlock>
+                    </Viewbox>
+                    
                     <Image Source="{Binding Imagen}"
                            Width="250"
                            Height="250"
+                           Stretch="UniformToFill"
                            Margin="15">
 
                     </Image>
@@ -101,7 +165,7 @@
                     <DockPanel LastChildFill="False"
                                Margin="10">
                         <Image x:Name="BanderaImage"
-                               Source="{Binding Tipo}"
+                               Style="{StaticResource banderImage}"
                                Width="40"
                                HorizontalAlignment="Left">
 
@@ -154,8 +218,6 @@
 
     <Grid Background="White">
 
-
-
         <Grid x:Name="myStackPanel"
               Margin="10"
               Background="White">
@@ -168,11 +230,11 @@
             </Grid.RowDefinitions>
 
             <ListBox x:Name="ItemsListBox"
-                     SelectionChanged="ItemsListBox_SelectionChanged"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                      ItemsSource="{Binding}"
                      Grid.Column="0">
+
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel></WrapPanel>
@@ -192,7 +254,8 @@
 
                     </TextBlock>
 
-                    <TextBox x:Name="nombreTextBox">
+                    <TextBox x:Name="nombreTextBox"
+                             Text="{Binding ElementName=ItemsListBox, Path=SelectedItem.Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </TextBox>
                 </StackPanel>
@@ -203,17 +266,16 @@
 
                     </TextBlock>
 
-                    <TextBox x:Name="imagenTextBox">
+                    <TextBox x:Name="imagenTextBox"
+                             Text="{Binding ElementName=ItemsListBox, Path=SelectedItem.Imagen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </TextBox>
                 </StackPanel>
 
-
-                <ComboBox Margin="5">
-                    <ComboBoxItem></ComboBoxItem>
-                    <ComboBoxItem x:Name="chinaComboBox">China</ComboBoxItem>
-                    <ComboBoxItem x:Name="americanaComboBox">Americana</ComboBoxItem>
-                    <ComboBoxItem x:Name="mexicanaComboBox">Mexicana</ComboBoxItem>
+                <ComboBox Margin="5"
+                          ItemsSource="{Binding}"
+                          SelectedValue="{Binding ElementName=ItemsListBox, Path=SelectedItem.Tipo}"
+                          x:Name="TipoComida">
                 </ComboBox>
 
                 <GroupBox  Margin="5"
@@ -221,30 +283,29 @@
                            BorderBrush="Black">
                     <UniformGrid>
                         <CheckBox Margin="5"
-                                  Content="Leche">
+                                  Content="Leche"
+                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Leche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
-                                  Content="Leche">
+                                  Content="Soja"
+                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Soja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
-                                  Content="Leche">
+                                  Content="Gluten"
+                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Gluten, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
-                                  Content="Leche">
+                                  Content="Sulfitos"
+                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Sulfitos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                     </UniformGrid>
 
                 </GroupBox>
 
-
-                <Button Content="Comprobar"
-                        Click="Button_Click">
-
-                </Button>
             </StackPanel>
 
 
