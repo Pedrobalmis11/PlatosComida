@@ -84,23 +84,30 @@
                              Value="Americana">
                     <Setter Property="Source"
                             Value="united_states.png"></Setter>
+                    <Setter Property="ToolTip"
+                            Value="Comida Americana"></Setter>
 
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="China">
                     <Setter Property="Source"
                             Value="china.png"></Setter>
+                    <Setter Property="ToolTip"
+                            Value="Comida China"></Setter>
 
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="Mexicana">
                     <Setter Property="Source"
                             Value="mexico.png"></Setter>
+                    <Setter Property="ToolTip"
+                            Value="Comida Mexicana"></Setter>
 
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
+       
         <!--TRIGGER DE FUENTES-->
         <Style TargetType="TextBlock"
                x:Key="fontTextBlock">
@@ -115,16 +122,18 @@
 
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="China">
-                    <Setter Property="FontFamily" Value="Chinese Wok Food St">
+                    <Setter Property="FontFamily"
+                            Value="Chinese Wok Food St">
                     </Setter>
 
-               </DataTrigger>
+                </DataTrigger>
 
                 <DataTrigger Binding="{Binding Path=Tipo}"
                              Value="Mexicana">
-                    <Setter Property="FontFamily" Value="Taco Salad">
+                    <Setter Property="FontFamily"
+                            Value="Taco Salad">
                     </Setter>
-                    
+
 
                 </DataTrigger>
             </Style.Triggers>
@@ -144,16 +153,16 @@
 
                 <StackPanel Background="White"
                             Margin="10">
-                    <Viewbox StretchDirection="DownOnly" Height="40">
+                    <Viewbox
+                             Height="40">
                         <TextBlock x:Name="nombrePlatoTextBlock"
                                    Text="{Binding Nombre}"
-                                   FontSize="50"
                                    Style="{StaticResource fontTextBlock}"
                                    TextAlignment="Center">
 
                         </TextBlock>
                     </Viewbox>
-                    
+
                     <Image Source="{Binding Imagen}"
                            Width="250"
                            Height="250"
@@ -244,6 +253,7 @@
             </ListBox>
 
             <StackPanel x:Name="contenedorStackPanel"
+                        DataContext="{Binding ElementName=ItemsListBox, Path=SelectedItem}"
                         Grid.Column="1"
                         Background="LightGray"
                         Margin="10">
@@ -255,7 +265,7 @@
                     </TextBlock>
 
                     <TextBox x:Name="nombreTextBox"
-                             Text="{Binding ElementName=ItemsListBox, Path=SelectedItem.Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                             Text="{Binding Path=Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </TextBox>
                 </StackPanel>
@@ -267,14 +277,13 @@
                     </TextBlock>
 
                     <TextBox x:Name="imagenTextBox"
-                             Text="{Binding ElementName=ItemsListBox, Path=SelectedItem.Imagen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                             Text="{Binding Path=Imagen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </TextBox>
                 </StackPanel>
 
                 <ComboBox Margin="5"
-                          ItemsSource="{Binding}"
-                          SelectedValue="{Binding ElementName=ItemsListBox, Path=SelectedItem.Tipo}"
+                          SelectedValue="{Binding Path=Tipo}"
                           x:Name="TipoComida">
                 </ComboBox>
 
@@ -284,22 +293,22 @@
                     <UniformGrid>
                         <CheckBox Margin="5"
                                   Content="Leche"
-                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Leche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                  IsChecked="{Binding Path=Leche, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
                                   Content="Soja"
-                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Soja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                  IsChecked="{Binding Path=Soja, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
                                   Content="Gluten"
-                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Gluten, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                  IsChecked="{Binding Path=Gluten, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                         <CheckBox Margin="5"
                                   Content="Sulfitos"
-                                  IsChecked="{Binding ElementName=ItemsListBox, Path=SelectedItem.Sulfitos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                  IsChecked="{Binding Path=Sulfitos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                         </CheckBox>
                     </UniformGrid>

@@ -34,7 +34,7 @@ namespace PlatosComida
             comidas.Add("China");
             comidas.Add("Americana");
             comidas.Add("Mexicana");
-            TipoComida.DataContext = comidas;
+            TipoComida.ItemsSource = comidas;
 
         }
       
